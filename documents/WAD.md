@@ -1,0 +1,134 @@
+# Web Application Document - Projeto Individual - Módulo 2 - Inteli
+
+## SalaBase - Uma Base Central de Salas
+
+#### Amanda Cristina Martinez da Rosa
+
+## Sumário
+
+1. [Introdução](#c1)
+2. [Visão Geral da Aplicação Web](#c2)
+3. [Projeto Técnico da Aplicação Web](#c3)
+4. [Desenvolvimento da Aplicação Web](#c4)
+5. [Referências](#c5)
+
+<br>
+
+## <a name="c1"></a>1. Introdução
+
+O SalaBase é uma plataforma web pensada para tornar mais fácil e organizada a rotina de quem precisa reservar salas no Inteli. A ideia surgiu da necessidade real de otimizar o uso dos espaços compartilhados dentro da faculdade, oferecendo aos alunos, professores e colaboradores uma forma prática e centralizada de verificar a disponibilidade de salas, agendar horários e evitar conflitos de uso.
+
+Desenvolvido com Node.js, Express.js e banco de dados PostgreSQL, o sistema foi estruturado utilizando o padrão MVC (Model-View-Controller), o que garante uma base sólida para manutenção e futuras melhorias. Além de prezar por um backend funcional e bem organizado, o projeto também valoriza a experiência do usuário, priorizando uma navegação intuitiva e acessível.
+
+O SalaBase não é apenas um exercício técnico — ele é uma resposta a um problema cotidiano, com potencial real de aplicação no ambiente universitário. Toda a lógica por trás do sistema foi pensada para ser clara, escalável e colaborativa, facilitando o desenvolvimento contínuo por diferentes integrantes da comunidade Inteli. Esta documentação apresenta o raciocínio por trás da modelagem do banco de dados, a estrutura geral do projeto e os caminhos criados para o sistema funcionar do início ao fim.
+
+
+---
+
+## <a name="c2"></a>2. Visão Geral da Aplicação Web
+
+### 2.1. Personas 
+
+_Posicione aqui sua(s) Persona(s) em forma de texto markdown com imagens, ou como imagem de template preenchido. Atualize esta seção ao longo do módulo se necessário._
+
+### 2.2. User Stories 
+
+_Posicione aqui a lista de User Stories levantadas para o projeto. Siga o template de User Stories e utilize a referência USXX para numeração (US01, US02, US03, ...). Indique todas as User Stories mapeadas, mesmo aquelas que não forem implementadas ao longo do projeto. Não se esqueça de explicar o INVEST de 1 User Storie prioritária._
+
+---
+
+## <a name="c3"></a>3. Projeto da Aplicação Web
+
+### 3.1. Modelagem do banco de dados 
+
+![Modelo relacional do banco de dados](../assets/modelo-banco.pdf)
+
+<p align="center">Figura 1 - Modelo de Entidade Relacional do banco de dados</p>
+
+**Arquivo de modelagem física do banco de dados:** [initDB.sql](../scripts/initDB.sql)
+
+
+
+A modelagem do banco de dados do SalaBase foi cuidadosamente planejada para permitir o gerenciamento eficiente de reservas de salas em um ambiente compartilhado por diferentes ateliês, usuários e grupos de trabalho. O sistema é composto por seis tabelas principais que se relacionam entre si de maneira lógica e estruturada:
+
+- ```usuario``` (Usuário): Armazena as informações dos usuários cadastrados na plataforma, incluindo ```usuario_id``` (UUID), ```nome```, ```sobrenome```, ```email``` e o ```atelie``` ao qual pertencem. A associação com a tabela ```atelie``` indica o local de origem do usuário.
+
+- ```atelie``` (Ateliê): Contém os ateliês existentes no sistema, com os campos ```atelie_id``` (UUID) e ```nome```. Essa tabela serve como referência para a organização dos usuários e dos grupos.
+
+- ```salas``` (Salas): Representa as salas disponíveis para reserva, com informações como ```sala_id``` (UUID), ```nome```, ```categoria``` e ```status```. Cada sala pode ser associada a diversas reservas.
+
+- ```reservas``` (Reservas): Registra as reservas feitas pelos usuários. Inclui ```reservas_id``` (UUID), ```sala_id```, ```usuario_id```, ```grupo_id```, ```data```, ```hora_inicio```, ```hora_final``` e ```status```. É uma das principais tabelas do sistema, permitindo o controle de horários e disponibilidade das salas.
+
+- ```grupo``` (Grupo): Armazena os grupos criados para realizar reservas em conjunto. Os campos incluem ```grupo_id``` (UUID), ```numero``` (número identificador do grupo), ```atelie``` (nome do ateliê relacionado) e ```usuario``` (representante ou criador do grupo).
+
+- ```grupo_usuario``` (Participação em Grupos): Tabela intermediária que define a relação muitos-para-muitos entre usuario e grupo. Armazena ```grupo_usuario_id``` (UUID), ```grupo_id``` e ```usuario_id```, permitindo que múltiplos usuários participem de diferentes grupos.
+
+**Relacionamentos-chave do modelo:**
+
+- Um ```usuario``` pertence a um único ```atelie```, e um ```atelie``` pode ter vários ```usuarios```.
+
+- Um ```usuario``` pode realizar múltiplas ```reservas```, e cada ```reserva``` pertence a apenas um ```usuario```.
+
+- Uma ```reserva``` está associada a uma única ```sala```, mas uma ```sala``` pode estar relacionada a várias ```reservas``` ao longo do tempo.
+
+- Um ```grupo``` pode ser vinculado a diversas ```reservas```, assim como vários ```usuarios``` podem ser membros de um ou mais ```grupos```, via a tabela intermediária ```grupo_usuario```.
+
+Este modelo relacional garante a integridade dos dados, facilita a escalabilidade do sistema e permite a implementação de funcionalidades adicionais, como filtragem de salas por status ou categoria, agrupamento de reservas por grupo ou ateliê, e relatórios de uso do espaço ao longo do tempo.
+
+### 3.1.1 BD e Models (Semana 5)
+
+_Descreva aqui os Models implementados no sistema web_
+
+### 3.2. Arquitetura (Semana 5)
+
+_Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário._
+
+**Instruções para criação do diagrama de arquitetura**
+
+- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
+- **View**: A camada responsável pela interface de usuário.
+- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
+
+_Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View._
+
+### 3.3. Wireframes (Semana 03 - opcional)
+
+_Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização)._
+
+### 3.4. Guia de estilos (Semana 05 - opcional)
+
+_Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução._
+
+### 3.5. Protótipo de alta fidelidade (Semana 05 - opcional)
+
+_Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização)._
+
+### 3.6. WebAPI e endpoints (Semana 05)
+
+_Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema._
+
+### 3.7 Interface e Navegação (Semana 07)
+
+_Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar._
+
+---
+
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+
+### 4.1 Demonstração do Sistema Web (Semana 8)
+
+_VIDEO: Insira o link do vídeo demonstrativo nesta seção_
+_Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar._
+
+### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+
+_Indique pontos fortes e pontos a melhorar de maneira geral._
+_Relacione também quaisquer outras ideias que você tenha para melhorias futuras._
+
+## <a name="c5"></a>5. Referências
+
+_Incluir as principais referências de seu projeto, para que o leitor possa consultar caso ele se interessar em aprofundar._<br>
+
+---
+
+---
