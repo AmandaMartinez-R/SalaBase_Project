@@ -1,4 +1,5 @@
-<img src="../assets/logo-salaBase.png">
+<img src="../assets/logo-salaBase.png" alt= imagem logo do projeto width="50%">
+
 # Web Application Document - Projeto Individual - Módulo 2 - Inteli
 
 ## SalaBase - Uma Base Central de Salas
