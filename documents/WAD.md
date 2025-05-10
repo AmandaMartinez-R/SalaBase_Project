@@ -1,3 +1,4 @@
+<img src="../assets/logo-salaBase.png">
 # Web Application Document - Projeto Individual - Módulo 2 - Inteli
 
 ## SalaBase - Uma Base Central de Salas
@@ -75,11 +76,11 @@ A modelagem do banco de dados do SalaBase foi cuidadosamente planejada para perm
 
 Este modelo relacional garante a integridade dos dados, facilita a escalabilidade do sistema e permite a implementação de funcionalidades adicionais, como filtragem de salas por status ou categoria, agrupamento de reservas por grupo ou ateliê, e relatórios de uso do espaço ao longo do tempo.
 
-### 3.1.1 BD e Models (Semana 5)
+### 3.1.1 BD e Models 
 
 _Descreva aqui os Models implementados no sistema web_
 
-### 3.2. Arquitetura (Semana 5)
+### 3.2. Arquitetura
 
 _Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário._
 
@@ -91,36 +92,36 @@ _Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. A
 
 _Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View._
 
-### 3.3. Wireframes (Semana 03 - opcional)
+### 3.3. Wireframes 
 
 _Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização)._
 
-### 3.4. Guia de estilos (Semana 05 - opcional)
+### 3.4. Guia de estilos 
 
 _Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução._
 
-### 3.5. Protótipo de alta fidelidade (Semana 05 - opcional)
+### 3.5. Protótipo de alta fidelidade 
 
 _Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização)._
 
-### 3.6. WebAPI e endpoints (Semana 05)
+### 3.6. WebAPI e endpoints 
 
 _Utilize um link para outra página de documentação contendo a descrição completa de cada endpoint. Ou descreva aqui cada endpoint criado para seu sistema._
 
-### 3.7 Interface e Navegação (Semana 07)
+### 3.7 Interface e Navegação 
 
 _Descreva e ilustre aqui o desenvolvimento do frontend do sistema web, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar._
 
 ---
 
-## <a name="c4"></a>4. Desenvolvimento da Aplicação Web (Semana 8)
+## <a name="c4"></a>4. Desenvolvimento da Aplicação Web 
 
-### 4.1 Demonstração do Sistema Web (Semana 8)
+### 4.1 Demonstração do Sistema Web 
 
 _VIDEO: Insira o link do vídeo demonstrativo nesta seção_
 _Descreva e ilustre aqui o desenvolvimento do sistema web completo, explicando brevemente o que foi entregue em termos de código e sistema. Utilize prints de tela para ilustrar._
 
-### 4.2 Conclusões e Trabalhos Futuros (Semana 8)
+### 4.2 Conclusões e Trabalhos Futuros 
 
 _Indique pontos fortes e pontos a melhorar de maneira geral._
 _Relacione também quaisquer outras ideias que você tenha para melhorias futuras._
