@@ -1,11 +1,11 @@
 --criação da tabela de atelie
-CREATE TABLE atelie (
+CREATE TABLE if NOT EXISTS atelie (
   atelie_id UUID PRIMARY KEY,
   nome VARCHAR (100)
 );
 
 --criação da tabela de usuario
-CREATE TABLE usuario (
+CREATE TABLE if NOT EXISTS usuario (
 usuario_id UUID PRIMARY KEY,
 nome VARCHAR(100),
 sobrenome VARCHAR(100),
@@ -15,7 +15,7 @@ FOREIGN KEY (atelie_id) REFERENCES atelie(atelie_id)
 );
 
 --criação da tabela de sala
-CREATE TABLE salas (
+CREATE TABLE if NOT EXISTS salas (
   sala_id UUID PRIMARY KEY,
   categoria VARCHAR(100),
   status VARCHAR(100),
@@ -24,7 +24,7 @@ CREATE TABLE salas (
 
 
 --criação da tabela de grupo
-CREATE TABLE grupo (
+CREATE TABLE if NOT EXISTS grupo (
   grupo_id UUID PRIMARY KEY,
   numero VARCHAR (100),
   atelie VARCHAR (100),
@@ -32,7 +32,7 @@ CREATE TABLE grupo (
 );
 
 --criação da tabela de reservas
-CREATE TABLE reservas (
+CREATE TABLE if NOT EXISTS reservas (
   reservas_id UUID PRIMARY KEY,
   hora_inicio TIME,
   data DATE,
@@ -47,7 +47,7 @@ CREATE TABLE reservas (
 );
 
 -- criação da tabela de grupo-usuario
-CREATE TABLE grupo_usuario (
+CREATE TABLE if NOT EXISTS grupo_usuario (
   grupo_usuario_id UUID PRIMARY KEY,
   grupo_id UUID,
   FOREIGN KEY (grupo_id) REFERENCES grupo (grupo_id),
