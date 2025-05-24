@@ -1,15 +1,19 @@
+// server.js
 const express = require('express');
-const app = express();
-const PORT = 3000;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes');
 
-// Middleware para processar JSON
+const app = express();
+const port = 3000;
+
+// Middlewares
+app.use(cors());
 app.use(express.json());
 
-// Rotas
-const routes = require('./routes/index');
-app.use('/', routes);
+// Usando as rotas definidas
+app.use('/api', routes);
 
-// Inicializa o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });
