@@ -79,19 +79,85 @@ Este modelo relacional garante a integridade dos dados, facilita a escalabilidad
 
 ### 3.1.1 BD e Models 
 
-_Descreva aqui os Models implementados no sistema web_
+O projeto segue uma arquitetura MVC (Model-View-Controller), garantindo a integração entre a camada de persistência e a lógica de negócio. Cada modelo representa uma tabela do banco de dados PostgreSQL e está localizado na pasta ```models/```.
+
+Os arquivos a seguir definem os modelos JavaScript responsáveis por interagir com o banco de dados, mantendo a organização e promovendo a reutilização de código:
+
+- ```models/Atelie.js```: Define o modelo Atelie, correspondente à tabela atelie. Armazena os dados dos ateliês disponíveis, que podem estar associados a usuários e grupos.
+
+- ```models/Usuario.js```: Define o modelo Usuario, correspondente à tabela usuario. Representa os usuários do sistema, incluindo informações pessoais e a associação a um ateliê específico.
+
+- ```models/Sala.js```: Define o modelo Sala, correspondente à tabela salas. Essa tabela gerencia os espaços físicos disponíveis para reserva, categorizando-os e monitorando seu status.
+
+- ```models/Grupo.js```: Define o modelo Grupo, correspondente à tabela grupo. Registra agrupamentos de usuários vinculados a um ateliê, usados principalmente para gerenciamento coletivo de reservas.
+
+- ```models/Reserva.js```: Define o modelo Reserva, correspondente à tabela reservas. Armazena os agendamentos realizados por usuários ou grupos em salas específicas, contendo data, hora e status da reserva.
+
+- ```models/GrupoUsuario.js```: Define o modelo GrupoUsuario, correspondente à tabela grupo_usuario. Responsável por relacionar os usuários aos grupos aos quais pertencem, funcionando como uma tabela de associação (many-to-many).
+
+Esses arquivos são importados e utilizados nos controllers localizados na pasta controllers/, onde está implementada a lógica de negócio da aplicação. Essa separação entre:
+
+- definição dos dados ```(models/)```,
+
+- manipulação de dados e regras de negócio ```(controllers/)```,
+
+- e rotas de acesso à API ```(routes/)```.
+
+promove uma estrutura de código mais modular, clara e fácil de manter. Essa arquitetura permite escalar o projeto com segurança, evitando duplicações e facilitando a manutenção conforme o sistema cresce.
 
 ### 3.2. Arquitetura
 
-_Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário._
+![Arquitetura do projeto](../assets/Arquitetura.jpg)
 
-**Instruções para criação do diagrama de arquitetura**
+<p align="center">Figura 1 - Modelo de Entidade Relacional do banco de dados</p>
+Este projeto foi desenvolvido seguindo a arquitetura MVC (Model-View-Controller), separando as responsabilidades da aplicação em três camadas principais: Model (modelo de dados), View (interface do usuário) e Controller (lógica de controle e integração). Essa separação torna o código mais organizado, reutilizável e fácil de manter.
 
-- **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
-- **View**: A camada responsável pela interface de usuário.
-- **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
+A aplicação é dividida entre Front-end e Back-end, cada um com suas tecnologias e responsabilidades.
 
-_Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View._
+#### Front-end
+O front-end foi construído com foco na simplicidade, acessibilidade e usabilidade, utilizando ferramentas modernas que facilitaram o desenvolvimento:
+
+- HTML, CSS e JavaScript: São a base da construção da interface, permitindo estruturar e estilizar as páginas de forma clara.
+
+- React: Utilizado para criar componentes dinâmicos e tornar a interface mais interativa.
+
+
+#### Back-end
+O back-end foi o coração da aplicação, responsável por lidar com os dados e aplicar as regras de negócio. Aqui estão as tecnologias usadas:
+
+- Node.js: O Node.js foi escolhido como ambiente de execução para o JavaScript no servidor.
+
+- Express.js: Framework que facilitou a criação das rotas e o gerenciamento das requisições HTTP. Com ele, é possível estruturar a API de forma organizada.
+
+- Sequelize: Para interagir com o banco de dados, foi usado o Sequelize.
+
+PostgreSQL: Banco de dados escolhido para armazenar as informações da aplicação. Foi trabalhadopor meio do Sequelize, criando tabelas e relacionamentos conforme o modelo relacional.
+
+- Supabase: Utilizado de forma complementar, especialmente para testes e visualização do banco durante o desenvolvimento.
+
+### Como os dados circulam na aplicação
+O fluxo de dados na aplicação funciona da seguinte maneira:
+
+- O usuário interage com a interface no navegador, navegando por páginas e preenchendo formulários.
+
+- Essas interações geram eventos que são capturados pelo React.
+
+- No back-end, o Express.js recebe essas requisições e repassa para o controller correspondente.
+
+- O controller processa a lógica da requisição, acessando os models definidos com Sequelize para consultar, criar, atualizar ou deletar informações no banco de dados PostgreSQL.
+
+- Os dados processados retornam do banco para o controller, e de lá são enviados como resposta para o front-end.
+
+- O front-end então exibe esses dados ao usuário de forma dinâmica, graças ao React.
+
+### Estrutura do Projeto (resumida)
+- _Model:_ Define as tabelas, colunas e relacionamentos do banco de dados com Sequelize.
+
+- _Controller:_ Recebe as requisições das rotas, chama os métodos do model e retorna as respostas apropriadas.
+
+- _Routes:_ Arquivo que organiza os caminhos da API e encaminha as requisições para os controllers.
+
+- _View (Front-end):_ Contém a interface construída com React, organizando componentes, páginas e estilos.
 
 ### 3.3. Wireframes 
 
