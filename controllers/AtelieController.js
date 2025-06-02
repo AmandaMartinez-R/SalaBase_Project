@@ -1,7 +1,7 @@
 const pool = require('../config/database');
 const { v4: uuidv4 } = require('uuid');
 
-// Criar um novo ateliê
+// Criar um novo ateliêB(POST)
 exports.criarAtelie = async (req, res) => {
   const { nome } = req.body;
   const atelie_id = uuidv4();
@@ -17,7 +17,7 @@ exports.criarAtelie = async (req, res) => {
   }
 };
 
-// Listar todos os ateliês
+// Listar todos os ateliês (GET)
 exports.listarAtelies = async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM atelie');
@@ -27,7 +27,8 @@ exports.listarAtelies = async (req, res) => {
   }
 };
 
-// Editar um ateliê
+// Editar um ateliê (PUT)
+
 exports.editarAtelie = async (req, res) => {
   const { atelie_id } = req.params;
   const { nome } = req.body;
@@ -46,7 +47,7 @@ exports.editarAtelie = async (req, res) => {
   }
 };
 
-// Excluir um ateliê
+// Excluir um ateliê (DELETE)
 exports.excluirAtelie = async (req, res) => {
   const { atelie_id } = req.params;
 

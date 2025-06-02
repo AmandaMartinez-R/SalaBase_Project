@@ -12,37 +12,37 @@ const GrupoUsuarioController = require('../controllers/GrupoUsuarioController');
 // Rotas para Atelie
 router.post('/atelies', AtelieController.criarAtelie);
 router.get('/atelies', AtelieController.listarAtelies);
-router.put('/atelies/:id', AtelieController.editarAtelie);
-router.delete('/atelies/:id', AtelieController.excluirAtelie);
+router.put('/atelies/:atelie_id', AtelieController.editarAtelie);
+router.delete('/atelies/:atelie_id', AtelieController.excluirAtelie);
 
 // Rotas para Usuario
 router.post('/usuarios', UsuarioController.criarUsuario);
 router.get('/usuarios', UsuarioController.listarUsuarios);
-router.put('/usuarios/:id', UsuarioController.editarUsuario);
-router.delete('/usuarios/:id', UsuarioController.excluirUsuario);
+router.put('/usuarios/:usuario_id', UsuarioController.editarUsuario);
+router.delete('/usuarios/:usuario_id', UsuarioController.excluirUsuario);
 
 // Rotas para Sala
 router.post('/salas', SalaController.criarSala);
 router.get('/salas', SalaController.listarSalas);
-router.put('/salas/:id', SalaController.editarSala);
-router.delete('/salas/:id', SalaController.excluirSala);
+router.put('/salas/:sala_id', SalaController.editarSala);
+router.delete('/salas/:sala_id', SalaController.excluirSala);
 
 // Rotas para Grupo
 router.post('/grupos', GrupoController.criarGrupo);
 router.get('/grupos', GrupoController.listarGrupos);
-router.put('/grupos/:id', GrupoController.editarGrupo);
-router.delete('/grupos/:id', GrupoController.excluirGrupo);
+router.put('/grupos/:grupo_id', GrupoController.editarGrupo);
+router.delete('/grupos/:grupo_id', GrupoController.excluirGrupo);
 
 // Rotas para Reserva
 router.post('/reservas', ReservaController.criarReserva);
 router.get('/reservas', ReservaController.listarReservas);
-router.put('/reservas/:id', ReservaController.editarReserva);
-router.delete('/reservas/:id', ReservaController.excluirReserva);
+router.put('/reservas/:reservas_id', ReservaController.editarReserva);
+router.delete('/reservas/:reservas_id', ReservaController.excluirReserva);
 
 // Rotas para GrupoUsuario
 router.post('/grupo-usuarios', GrupoUsuarioController.criarGrupoUsuario);
 router.get('/grupo-usuarios', GrupoUsuarioController.listarGrupoUsuarios);
-router.put('/grupo-usuarios/:id', GrupoUsuarioController.editarGrupoUsuario);
-router.delete('/grupo-usuarios/:id', GrupoUsuarioController.excluirGrupoUsuario);
+router.put('/grupo-usuarios/:grupo_usuario_id', GrupoUsuarioController.editarGrupoUsuario);
+router.delete('/grupo-usuarios/:grupo_usuario_id', GrupoUsuarioController.excluirGrupoUsuario);
 
 module.exports = router;
