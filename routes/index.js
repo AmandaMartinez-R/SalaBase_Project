@@ -1,6 +1,9 @@
 // routes/index.js
 const express = require('express');
 const router = express.Router();
+const pool = require('../config/database');
+
+
 
 const AtelieController = require('../controllers/AtelieController');
 const UsuarioController = require('../controllers/UsuarioController');
@@ -11,7 +14,16 @@ const GrupoUsuarioController = require('../controllers/GrupoUsuarioController');
 
 // Rotas para Atelie
 router.post('/atelies', AtelieController.criarAtelie);
-router.get('/atelies', AtelieController.listarAtelies);
+// router.get('/atelies', AtelieController.listarAtelies);
+router.get('/atelies-view', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM atelie');
+    res.render('atelies', { atelies: result.rows });
+  } catch (err) {
+    res.status(500).send(`Erro ao carregar ateliês: ${err.message}`);
+  }
+});
+
 router.put('/atelies/:atelie_id', AtelieController.editarAtelie);
 router.delete('/atelies/:atelie_id', AtelieController.excluirAtelie);
 

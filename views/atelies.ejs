@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Ateliês</title>
+</head>
+<body>
+  <h1>Lista de Ateliês</h1>
+
+  <% if (atelies.length > 0) { %>
+    <ul>
+      <% atelies.forEach(atelie => { %>
+        <li><strong><%= atelie.nome %></strong> (ID: <%= atelie.atelie_id %>)</li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>Nenhum ateliê encontrado.</p>
+  <% } %>
+
+</body>
+</html>
