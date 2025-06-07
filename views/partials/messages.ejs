@@ -1,0 +1,14 @@
+<% if (typeof query !== 'undefined') { %>
+  <% if (query.success) { %>
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+      <%= query.success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  <% if (query.error) { %>
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+      <%= query.error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+<% } %>

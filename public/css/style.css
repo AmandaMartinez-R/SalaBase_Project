@@ -1,0 +1,106 @@
+/* Estilos para o calendário de reservas */
+.reserva-calendar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.sala-slot {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.sala-slot.disponivel {
+  background-color: #e8f5e9;
+  cursor: pointer;
+}
+
+.sala-slot.reservado {
+  background-color: #ffebee;
+}
+
+.sala-slot:hover {
+  transform: scale(1.02);
+}
+
+/* Feedback visual para formulário */
+.form-control:focus {
+  border-color: #6200ea;
+  box-shadow: 0 0 0 0.25rem rgba(98, 0, 234, 0.25);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .reserva-calendar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mensagens de feedback */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Loader durante requisições */
+.loader {
+  display: none;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #6200ea;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Melhorias no formulário */
+.form-label.required:after {
+  content: " *";
+  color: red;
+}
+
+/* Estilo para os cards na home */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Espaçamento adicional para o main */
+main {
+  min-height: calc(100vh - 120px); /* Ajuste conforme o tamanho do seu header/footer */
+}
+
+.maintenance-card {
+  background: white;
+  border-top: 5px solid #0d6efd;
+}
+
+.progress {
+  height: 10px;
+}

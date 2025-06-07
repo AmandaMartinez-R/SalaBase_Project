@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../partials/head', { title: mode === 'edit' ? 'Editar Sala' : 'Nova Sala' }) %>
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="container mt-4">
+    <h1><%= mode === 'edit' ? 'Editar Sala' : 'Nova Sala' %></h1>
+
+    <form action="<%= mode === 'edit' ? '/api/salas/' + sala.sala_id + '?_method=PUT' : '/api/salas' %>" method="POST">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome*</label>
+        <input type="text" class="form-control" id="nome" name="nome" value="<%= sala ? sala.nome : '' %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="capacidade" class="form-label">Capacidade*</label>
+        <input type="number" class="form-control" id="capacidade" name="capacidade" value="<%= sala ? sala.capacidade : '' %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria*</label>
+        <select class="form-select" id="categoria" name="categoria" required>
+          <option value="">Selecione...</option>
+          <option value="Computação" <%= sala && sala.categoria === 'Computação' ? 'selected' : '' %>>Computação</option>
+          <option value="Design" <%= sala && sala.categoria === 'Design' ? 'selected' : '' %>>Design</option>
+          <option value="Maker" <%= sala && sala.categoria === 'Maker' ? 'selected' : '' %>>Maker</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary"><%= mode === 'edit' ? 'Atualizar' : 'Criar' %> Sala</button>
+      <a href="/salas" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+  </main>
+</body>
+</html>

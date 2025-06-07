@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <%- include('../partials/head', {title: 'Reservas'}) %>
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <main class="container mt-4">
+        <h1>Reservas de Salas</h1>
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/reservas/nova" class="btn btn-primary">Nova Reserva</a>
+    </div>
+
+    <% if (locals.query && typeof locals.query.success !== 'undefined') { %>
+        <div class="alert alert-success mb-3">
+            <%= locals.query.success %>
+        </div>
+    <% } %>
+
+    <% if (locals.query && typeof locals.query.error !== 'undefined') { %>
+        <div class="alert alert-danger mb-3"> <!-- Corrigido de alert-error para alert-danger -->
+            <%= locals.query.error %>
+        </div>
+    <% } %>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sala</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Responsável</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+            <tbody id="reservas-list">
+            <!-- Dados serão preenchidos via JavaScript -->
+            </tbody>
+        </table>
+    </main>
+    <%- include('../partials/footer') %>
+    <script>
+        // Buscar reservas via Fetch API
+        fetch('/api/reservas')
+            .then(response => response.json())
+            .then(reservas => {
+                const tableBody = document.getElementById('reservas-list');
+                tableBody.innerHTML = '';  // Limpa a tabela antes de preencher
+                
+                reservas.forEach(reserva => {
+                // Determina o responsável (usuário ou grupo)
+                    let responsavel = 'N/A';
+
+                    if (reserva.nome_usuario && reserva.nome_usuario.trim() !== '') {
+                        responsavel = reserva.nome_usuario;
+                    } else if (reserva.numero_grupo) {
+                        responsavel = `Grupo ${reserva.numero_grupo}`;
+                    }
+                
+                // Formata a data para o formato brasileiro
+                const dataFormatada = new Date(reserva.data).toLocaleDateString('pt-BR');     
+                
+                const row = `
+                    <tr>
+                        <td>${reserva.nome_sala || 'N/A'}</td>
+                        <td>${dataFormatada}</td>
+                        <td>${reserva.hora_inicio} - ${reserva.hora_final}</td>
+                        <td>${responsavel}</td>
+                        <td>
+                            <a href="/reservas/editar/${reserva.reservas_id}" class="btn btn-sm btn-warning">Editar</a>
+                            <button onclick="deleteReserva('${reserva.reservas_id}')" class="btn btn-sm btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                    `;
+                tableBody.innerHTML += row;
+            });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar reservas:', error);
+                document.getElementById('reservas-list').innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center text-danger">
+                            Erro ao carregar reservas. Recarregue a página.
+                        </td>
+                    </tr>
+                `;
+            });
+
+        function deleteReserva(id) {
+            if (confirm('Tem certeza que deseja excluir esta reserva?')) {
+            fetch(`/api/reservas/${id}`, { method: 'DELETE' })
+                .then(response => {
+                if (!response.ok) throw new Error('Erro ao excluir reserva');
+                window.location.reload();
+                })
+                .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao excluir reserva');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

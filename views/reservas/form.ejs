@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../partials/head', {title: locals.mode === 'edit' ? 'Editar Reserva' : 'Nova Reserva'}) %>
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <main class="container mt-4">
+    <h1><%= locals.mode === 'edit' ? 'Editar Reserva' : 'Nova Reserva' %></h1>
+    
+    <form id="reservaForm">
+      <input type="hidden" id="reservas_id" value="<%= locals.reserva ? reserva.reservas_id : '' %>">
+      
+      <div class="row g-3">
+        <!-- Sala -->
+        <div class="col-md-6">
+          <label for="sala_id" class="form-label">Sala*</label>
+          <select class="form-select" id="sala_id" required>
+            <option value="">Selecione...</option>
+            <!-- Opções serão preenchidas via JavaScript -->
+          </select>
+        </div>
+
+        <!-- Data -->
+        <div class="col-md-6">
+          <label for="data" class="form-label">Data*</label>
+          <input type="date" class="form-control" id="data" required 
+                 value="<%= locals.reserva ? reserva.data.split('T')[0] : '' %>">
+        </div>
+
+        <!-- Horário -->
+        <div class="col-md-6">
+          <label for="hora_inicio" class="form-label">Horário Início*</label>
+          <select class="form-select" id="hora_inicio" required>
+            <option value="">Selecione...</option>
+            <% ['08:00', '10:00', '14:00', '16:00', '19:00'].forEach(hora => { %>
+              <option value="<%= hora %>" <%= locals.reserva && reserva.hora_inicio === hora ? 'selected' : '' %>><%= hora %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label for="hora_final" class="form-label">Horário Final*</label>
+          <select class="form-select" id="hora_final" required>
+            <option value="">Selecione...</option>
+            <% ['10:00', '12:00', '16:00', '18:00', '21:00'].forEach(hora => { %>
+              <option value="<%= hora %>" <%= locals.reserva && reserva.hora_final === hora ? 'selected' : '' %>><%= hora %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <!-- Tipo de Reserva -->
+        <div class="col-12">
+          <label class="form-label">Tipo de Reserva*</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipo" id="tipoIndividual" value="individual" 
+                   <%= !locals.reserva || locals.reserva.usuario_id ? 'checked' : '' %>>
+            <label class="form-check-label" for="tipoIndividual">Individual</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="tipo" id="tipoGrupo" value="grupo"
+                   <%= locals.reserva && locals.reserva.grupo_id ? 'checked' : '' %>>
+            <label class="form-check-label" for="tipoGrupo">Grupo</label>
+          </div>
+        </div>
+
+        <!-- Campos dinâmicos -->
+        <div class="col-md-6" id="usuarioField" style="<%= locals.reserva && locals.reserva.grupo_id ? 'display: none;' : '' %>">
+          <label for="usuario_id" class="form-label">Responsável*</label>
+          <select class="form-select" id="usuario_id">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+
+        <div class="col-md-6" id="grupoField" style="<%= !locals.reserva || locals.reserva.usuario_id ? 'display: none;' : '' %>">
+          <label for="grupo_id" class="form-label">Grupo*</label>
+          <select class="form-select" id="grupo_id">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <button type="submit" class="btn btn-primary">
+          <%= locals.mode === 'edit' ? 'Atualizar Reserva' : 'Criar Reserva' %>
+        </button>
+        <a href="/" class="btn btn-secondary ms-2">Cancelar</a>
+      </div>
+    </form>
+  </main>
+  <%- include('../partials/footer') %>
+  <script>
+    // Alternar entre usuário/grupo
+    document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        document.getElementById('usuarioField').style.display = e.target.value === 'individual' ? 'block' : 'none';
+        document.getElementById('grupoField').style.display = e.target.value === 'grupo' ? 'block' : 'none';
+      });
+    });
+
+    // Carregar selects
+    async function loadSelectOptions() {
+        try {
+            // Carregar salas
+            const salas = await fetch('/api/salas').then(res => res.json());
+            const salaSelect = document.getElementById('sala_id');
+            salas.forEach(sala => {
+            const option = document.createElement('option');
+            option.value = sala.sala_id;
+            option.textContent = `${sala.nome} (${sala.categoria})`;
+            if ('<%= locals.reserva ? reserva.sala_id : "" %>' === sala.sala_id) {
+                option.selected = true;
+            }
+            salaSelect.appendChild(option);
+            });
+
+            // Carregar usuários
+            const usuarios = await fetch('/api/usuarios').then(res => res.json());
+            const usuarioSelect = document.getElementById('usuario_id');
+            usuarios.forEach(usuario => {
+            const option = document.createElement('option');
+            option.value = usuario.usuario_id;
+            option.textContent = `${usuario.nome} ${usuario.sobrenome}`;
+            if ('<%= locals.reserva ? reserva.usuario_id : "" %>' === usuario.usuario_id) {
+                option.selected = true;
+            }
+            usuarioSelect.appendChild(option);
+            });
+
+            // Carregar grupos
+            const grupos = await fetch('/api/grupos').then(res => res.json());
+            const grupoSelect = document.getElementById('grupo_id');
+            grupos.forEach(grupo => {
+            const option = document.createElement('option');
+            option.value = grupo.grupo_id;
+            option.textContent = `Grupo ${grupo.numero}`;
+            if ('<%= locals.reserva ? reserva.grupo_id : "" %>' === grupo.grupo_id) {
+                option.selected = true;
+            }
+            grupoSelect.appendChild(option);
+            });
+
+            // Forçar validação inicial dos campos
+            document.dispatchEvent(new Event('DOMContentLoaded'));
+
+        } catch (error) {
+            console.error('Erro ao carregar opções:', error);
+        }
+    }
+
+    // Enviar formulário
+    document.getElementById('reservaForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const tipo = document.querySelector('input[name="tipo"]:checked').value;
+        const usuario_id = tipo === 'individual' ? document.getElementById('usuario_id').value : null;
+        const grupo_id = tipo === 'grupo' ? document.getElementById('grupo_id').value : null;
+
+        // Validação explícita
+        if (tipo === 'individual' && !usuario_id) {
+            alert('Por favor, selecione um usuário para a reserva individual');
+            return;
+        }
+        
+        if (tipo === 'grupo' && !grupo_id) {
+            alert('Por favor, selecione um grupo para a reserva coletiva');
+            return;
+        }
+
+        // Montagem correta do objeto
+        const reservaData = {
+            sala_id: document.getElementById('sala_id').value,
+            data: document.getElementById('data').value,
+            hora_inicio: document.getElementById('hora_inicio').value,
+            hora_final: document.getElementById('hora_final').value,
+            usuario_id: usuario_id,
+            grupo_id: grupo_id
+        };
+
+        console.log('Dados sendo enviados:', reservaData); // Para debug
+
+        try {
+            const response = await fetch('<%= locals.mode === 'edit' ? `/api/reservas/${locals.reserva.reservas_id}` : '/api/reservas' %>', {
+            method: '<%= locals.mode === 'edit' ? 'PUT' : 'POST' %>',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reservaData)
+            });
+
+            const result = await response.json();
+            
+            if (!response.ok) {
+            throw new Error(result.message || 'Erro ao processar reserva');
+            }
+            
+            window.location.href = '/reservas?success=Reserva <%= locals.mode === 'edit' ? 'atualizada' : 'criada' %> com sucesso';
+        } catch (error) {
+            console.error('Erro:', error);
+            alert(error.message || 'Erro ao ' + ('<%= locals.mode === 'edit' ? 'atualizar' : 'criar' %>') + ' reserva');
+        }
+    });
+
+    
+    // Configuração inicial para edição
+    <% if (locals.reserva) { %>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Garante que o tipo correto está selecionado
+        if ('<%= locals.reserva.usuario_id %>') {
+        document.getElementById('tipoIndividual').checked = true;
+        document.getElementById('usuarioField').style.display = 'block';
+        document.getElementById('grupoField').style.display = 'none';
+        } else if ('<%= locals.reserva.grupo_id %>') {
+        document.getElementById('tipoGrupo').checked = true;
+        document.getElementById('grupoField').style.display = 'block';
+        document.getElementById('usuarioField').style.display = 'none';
+        }
+    });
+    <% } %>
+
+    loadSelectOptions();
+  </script>
+</body>
+</html>

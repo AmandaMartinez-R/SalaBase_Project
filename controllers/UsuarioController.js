@@ -17,20 +17,20 @@ exports.criarUsuario = async (req, res) => {
   }
 };
 
-// Listar um usuário específico mais simples para conferir a rota
-exports.listarUsuarios = (req, res) => {
-  res.send('Rota listarUsuarios funcionando!');
-};
+// // Listar um usuário específico mais simples para conferir a rota
+// exports.listarUsuarios = (req, res) => {
+//   res.send('Rota listarUsuarios funcionando!');
+// };
 
 // Listar todos os usuários
-// exports.listarUsuarios = async (req, res) => {
-//   try {
-//     const result = await pool.query('SELECT * FROM usuario');
-//     res.status(200).json(result.rows);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
+exports.listarUsuarios = async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM usuario');
+    res.status(200).json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // Editar um usuário
 exports.editarUsuario = async (req, res) => {

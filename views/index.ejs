@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('partials/head', {title: 'Home'}) %>
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <main class="container my-5">
+    <div class="text-center mb-5">
+      <img src="/assets/logo-salaBase.png" alt="SalaBase Logo" class="img-fluid" style="max-height: 200px;">
+      <h1 class="mt-3">Bem-vindo ao SalaBase</h1>
+      <p class="lead">Sistema de gerenciamento de salas e reservas</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-5 mb-4 mb-md-0">
+        <div class="card h-100 text-center">
+          <div class="card-body d-flex flex-column">
+            <h2 class="card-title">Salas</h2>
+            <p class="card-text flex-grow-1">Gerencie as salas disponíveis para reserva</p>
+            <a href="/salas" class="btn btn-primary btn-lg mt-auto">Acessar Salas</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-5">
+        <div class="card h-100 text-center">
+          <div class="card-body d-flex flex-column">
+            <h2 class="card-title">Reservas</h2>
+            <p class="card-text flex-grow-1">Visualize e gerencie todas as reservas</p>
+            <a href="/reservas" class="btn btn-primary btn-lg mt-auto">Acessar Reservas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

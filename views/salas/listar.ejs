@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <%- include('../partials/head', { title: 'Salas' }) %>
+</head>
+<body>
+  <%- include('../partials/header') %>
+  <main class="container mt-4">
+    <h1>Salas Cadastradas</h1>
+
+    <%- include('../partials/messages') %>
+
+    <div class="mb-3 text-end">
+      <a href="/salas/nova" class="btn btn-primary">Nova Sala</a>
+    </div>
+
+    <% if (salas.length > 0) { %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Capacidade</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% salas.forEach(sala => { %>
+            <tr>
+              <td><%= sala.nome %></td>
+              <td><%= sala.capacidade %></td>
+              <td><%= sala.categoria %></td>
+              <td>
+                <a href="/salas/editar/<%= sala.sala_id %>" class="btn btn-sm btn-warning">Editar</a>
+                <form action="/api/salas/<%= sala.sala_id %>?_method=DELETE" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>Nenhuma sala cadastrada.</p>
+    <% } %>
+  </main>
+</body>
+</html>
