@@ -40,6 +40,15 @@ npm run init-db
 
 Isso criará todas as tabelas do projeto no seu banco de dados PostgreSQL com UUID como chave primária.
 
+3. **Iniciar o servidor:**
+```bash
+# Para rodar o back-end em modo de desenvolvimento (com reinício automático):
+npm run dev
+
+# Ou, se preferir rodar normalmente:
+npm start
+```
+
 ## Funcionalidades
 
 SalaHub é uma aplicação web desenvolvida para facilitar o agendamento e gerenciamento de reservas de salas pelos alunos do Inteli. A plataforma permite que os usuários visualizem a disponibilidade dos espaços, filtrem por data e horário e realizem reservas de forma rápida e intuitiva. Com uma interface simples e funcional, o sistema busca otimizar a utilização dos ambientes da instituição, promovendo organização, autonomia e melhor aproveitamento dos recursos físicos oferecidos pela faculdade.
@@ -52,21 +61,25 @@ SalaHub é uma aplicação web desenvolvida para facilitar o agendamento e geren
 
 ## Estrutura de Diretórios
 
-- **`assets/`**: Arquivos públicos como imagens e fontes do projeto
-- **`config/`**: Arquivos de configuração (ex: conexão com banco)
-- **`controllers/`**: Lógica de controle das requisições
-- **`models/`**: Definição de modelos de dados (estrutura do banco)
-- **`routes/`**: Definição das rotas do sistema
-- **`scripts/`**: Arquivos de JavaScript públicos
-- **`services/`**: Serviços auxiliares do sistema
-- **`tests/`**: Arquivos de testes unitários.
-- **.gitignore**: Arquivo para ignorar arquivos no Git
-- **.env.example**: Arquivo de exemplo para variáveis de ambiente
-- **jest.config.js**: Arquivo de configuração do Jest
-- **package-lock.json**: Gerenciador de dependências do Node.js
-- **package.json**: Gerenciador de dependências do Node.js
-- **readme.md**: Documentação do projeto (Markdown)
-- **server.js**: Arquivo principal que inicializa o servidor
+- **`assets/`**: Arquivos públicos como imagens e fontes do projeto;
+- **`config/`**: Arquivos de configuração (ex: conexão com banco);
+- **`controllers/`**: Lógica de controle das requisições;
+- **`models/`**: Definição de modelos de dados (estrutura do banco);
+- **`node_modules/`**: Pasta contendo o pacote node;
+- **`public/`**: Toda a configuração css de estilos e imagens do frontend;
+- **`routes/`**: Definição das rotas do sistema;
+- **`scripts/`**: Arquivos de JavaScript públicos;
+- **`services/`**: Serviços auxiliares do sistema;
+- **`tests/`**: Arquivos de testes unitários;
+- **`views/`**: Armazena todos os arquivos de visualização do site.
+- **.env**: Contém os dados para conexão com o banco de dados;
+- **.gitignore**: Arquivo para ignorar arquivos no Git;
+- **.env.example**: Arquivo de exemplo para variáveis de ambiente;
+- **jest.config.js**: Arquivo de configuração do Jest;
+- **package-lock.json**: Gerenciador de dependências do Node.js;
+- **package.json**: Gerenciador de dependências do Node.js;
+- **readme.md**: Documentação do projeto (Markdown);
+- **server.js**: Arquivo principal que inicializa o servidor.
 
 ## Contribuição
 
